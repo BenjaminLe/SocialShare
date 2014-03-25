@@ -57,6 +57,14 @@ public class PNSClient extends PNSDrive{
         return receptionConfirmation();
     }
     
+    public boolean creationFichier(String nomFichier) throws IOException
+    {
+        output.writeInt(4);
+        output.writeUTF(nomFichier);
+        output.flush();
+        return receptionConfirmation();
+    }
+    
     public boolean receptionConfirmation() throws IOException
     {
         boolean conf = input.readBoolean();

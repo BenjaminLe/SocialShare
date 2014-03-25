@@ -9,7 +9,7 @@ public class MainServer {
     {
         PNSServer s = new PNSServer(new File("C:\\test\\"),1234);
 
-        for (int i=1; i<=3; i++)
+   //     for (int i=1; i<=3; i++)
             s.service();
         
         s.close();

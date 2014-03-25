@@ -45,6 +45,8 @@ public class PNSServer extends PNSDrive{
         case 3 : 
             creationDossier(input,output); 
             break;
+        case 4 :
+        	creationFichier(input,output);
         default : 
             envoiConfirmation(output,false,"Mode non reconnu.");
         }
@@ -81,6 +83,29 @@ public class PNSServer extends PNSDrive{
         try
         {
             boolean res = parent.mkdir();
+            envoiConfirmation(output,res,parent.getAbsolutePath());
+            return res;
+        }
+        catch (SecurityException e)
+        {
+            envoiConfirmation(output,false,e.toString());
+            return false;
+        }
+    }
+    
+    public boolean creationFichier(ObjectInputStream input, ObjectOutputStream output) throws IOException
+    {
+        String dir = input.readUTF();
+        
+        String[] tab = dir.split("/\\\\");
+        
+        File parent = root;
+        for (String child : tab)
+            parent = new File(parent,child);
+
+        try
+        {
+            boolean res = parent.createNewFile();
             envoiConfirmation(output,res,parent.getAbsolutePath());
             return res;
         }

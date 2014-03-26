@@ -21,7 +21,8 @@ public class MainClient {
 		
 		PNSClient c1 = new PNSClient(InetAddress.getLocalHost(),1234);
         c1.creationFichier("tata");
-        c1.close();
+        c1.close(); 
+        
 		
     }
 	

@@ -1,10 +1,10 @@
 package Serveur;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import PFE.socialShare.PNSDrive;
 
@@ -13,7 +13,8 @@ public class PNSServer extends PNSDrive{
 
 	private final ServerSocket srv;
     private final File root;
-	
+    protected Socket clt;
+    
     public PNSServer(File root, int port) throws IOException
     {
         srv = new ServerSocket(port);
@@ -27,26 +28,29 @@ public class PNSServer extends PNSDrive{
     
     public void service() throws IOException
     {
-        Socket clt = srv.accept();
-
+        clt = srv.accept();
+      
+        System.out.println("Accepted connection : " + clt);
         ObjectOutputStream output = new ObjectOutputStream(clt.getOutputStream());
         ObjectInputStream input = new ObjectInputStream(clt.getInputStream());
-
+        
         int mode = input.readInt();
 
         switch (mode)
         {
         case 1 : 
-            envoiFichier(input,output); 
+        	receptionFichier(input,output);
             break;
         case 2 :
-            receptionFichier(input,output);
+        	envoiFichier(input,output);
             break;
         case 3 : 
             creationDossier(input,output); 
             break;
         case 4 :
         	creationFichier(input,output);
+        case 5 :
+        	listFilesServer(input,output);
         default : 
             envoiConfirmation(output,false,"Mode non reconnu.");
         }
@@ -58,16 +62,41 @@ public class PNSServer extends PNSDrive{
     
     public boolean envoiFichier(ObjectInputStream input, ObjectOutputStream output) throws IOException
     {
-        //TODO
+       //TODO
         envoiConfirmation(output,false,"Mode non implémenté.");
         return false;
     }
+  
     
     public boolean receptionFichier(ObjectInputStream input, ObjectOutputStream output) throws IOException
     {
         // TODO
         envoiConfirmation(output,false,"Mode non implémenté.");
         return false;
+    }
+    
+    public void listFilesServer(ObjectInputStream input, ObjectOutputStream output) throws IOException
+    {
+       
+    	//lecture du pathname envoyé par le client
+    	String dir = input.readUTF();
+    	List<String> allFiles = new ArrayList<String>();
+    	if (dir == null)
+    		envoiConfirmation(output,false,"Pathname Manquant");
+    		
+    	else {
+    		this.listeRepertoire(new File(dir), allFiles);
+    		try 
+            {
+    			output = new ObjectOutputStream(clt.getOutputStream());
+    			output.writeObject(allFiles);              
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            } 
+    		envoiConfirmation(output,true,"Voici le contenu du chemin:"+ dir);
+    	}
     }
     
     public boolean creationDossier(ObjectInputStream input, ObjectOutputStream output) throws IOException
@@ -122,6 +151,5 @@ public class PNSServer extends PNSDrive{
         output.writeUTF(msg);
         output.flush();
     }
-    
-    
+        
 }

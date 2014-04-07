@@ -6,7 +6,7 @@ import java.util.List;
 public class PNSDrive {
 
 	// Module 17
-	public static boolean deleteDir(File dir) {
+	public boolean deleteDir(File dir) {
 		if (dir.isDirectory()) {
 			String[] children = dir.list();
 			for (int i = 0; i < children.length; i++) {
@@ -21,7 +21,7 @@ public class PNSDrive {
 	}
 
 	// Module 18 & 19
-	public static boolean fichierRenameOrMove(File ancien_nom, File nouveau_nom) {
+	public boolean fichierRenameOrMove(File ancien_nom, File nouveau_nom) {
 
 		if (ancien_nom.renameTo(nouveau_nom))
 			return true;
@@ -31,7 +31,7 @@ public class PNSDrive {
 	}
 
 	// Module 16
-	public static boolean fichierCreate(File fichier, boolean ford) {
+	public boolean fichierCreate(File fichier, boolean ford) {
 
 		boolean fichierCree = false;
 
@@ -67,7 +67,7 @@ public class PNSDrive {
 	}
 
 	// Module 15
-	public static void listeRepertoire(File path, List<String> allFiles) {
+	public void listeRepertoire(File path, List<String> allFiles) {
 
 		if (path.isDirectory()) {
 			File[] list = path.listFiles();

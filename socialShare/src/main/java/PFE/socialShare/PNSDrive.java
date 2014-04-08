@@ -70,11 +70,14 @@ public class PNSDrive {
 	public void listeRepertoire(File path, List<String> allFiles) {
 
 		if (path.isDirectory()) {
+			
 			File[] list = path.listFiles();
 			if (list != null) {
+				System.out.println(path);
+				allFiles.add(path.toString());
 				for (int i = 0; i < list.length; i++) {
 					// Appel récursif sur les sous-répertoires
-					listeRepertoire(list[i], allFiles);
+					listeRepertoire(list[i], allFiles);			
 				}
 			} else {
 				System.err.println(path + " : Erreur de lecture.");

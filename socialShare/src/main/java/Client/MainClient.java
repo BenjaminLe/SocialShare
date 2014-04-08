@@ -10,6 +10,7 @@ public class MainClient {
 
 	public static void main(String...args) throws IOException
     {
+		/*
         PNSClient c1 = new PNSClient(InetAddress.getLocalHost(),1234);
         c1.creationDossier("tata");
         c1.close();
@@ -21,6 +22,10 @@ public class MainClient {
         PNSClient c3 = new PNSClient(InetAddress.getLocalHost(),1234);
         c3.creationFichier("tata/titi.txt");
         c3.close();
+		*/
+		PNSClient c4 = new PNSClient(InetAddress.getLocalHost(),1234);
+        c4.listFilesServer("E:\\test\\");
+        c4.close();
 		
     }
 	

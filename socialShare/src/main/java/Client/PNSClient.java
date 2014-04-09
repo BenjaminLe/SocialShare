@@ -66,6 +66,14 @@ public class PNSClient extends PNSDrive{
         return receptionConfirmation();
     }
     
+    //Module 17 en réseau
+    public boolean deleteFichier(String pathnameFile) throws IOException
+    {
+        output.writeInt(6);
+        output.writeUTF(pathnameFile);
+        output.flush();
+        return receptionConfirmation();
+    }
     
     //Module 15 en réseau
     public boolean listFilesServer(String pathname) throws IOException

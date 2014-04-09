@@ -6,18 +6,20 @@ import java.util.List;
 public class PNSDrive {
 
 	// Module 17
-	public boolean deleteDir(File dir) {
+	public boolean deleteDirOrFile(File dir) {
 		if (dir.isDirectory()) {
 			String[] children = dir.list();
 			for (int i = 0; i < children.length; i++) {
-				boolean success = deleteDir(new File(dir, children[i]));
+				boolean success = deleteDirOrFile(new File(dir, children[i]));
 				if (!success)
 					return false;
 			}
 		}
-
+		
+		boolean estSupprime = dir.delete();
+		System.out.println(dir.toString() + " est supprimé !");
 		// The directory is now empty so delete it
-		return dir.delete();
+		return estSupprime;
 	}
 
 	// Module 18 & 19

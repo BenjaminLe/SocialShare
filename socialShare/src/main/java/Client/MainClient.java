@@ -24,7 +24,7 @@ public class MainClient {
         c3.close();
 		*/
 		PNSClient c4 = new PNSClient(InetAddress.getLocalHost(),1234);
-        c4.listFilesServer("E:\\test\\");
+        c4.deleteFichier("E:\\test\\testlol.txt");
         c4.close();
 		
     }

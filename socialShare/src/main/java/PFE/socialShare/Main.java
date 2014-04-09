@@ -7,7 +7,8 @@ import java.util.List;
 public class Main {
 	public static void main(String[] args) {
 		PNSDrive pns = new PNSDrive();
-	List<String> allFiles = new ArrayList<String>();
-		pns.listeRepertoire(new File("E:\\test\\"), allFiles);
+		
+	File fichier = new File("C:\\test\\toto");
+	pns.deleteDirOrFile(fichier);
 	}
 }

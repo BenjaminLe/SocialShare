@@ -51,6 +51,8 @@ public class PNSServer extends PNSDrive{
         	creationFichier(input,output);
         case 5 :
         	listFilesServer(input,output);
+        case 6 :
+        	suppressionFichier(input,output);
         default : 
             envoiConfirmation(output,false,"Mode non reconnu.");
         }
@@ -89,15 +91,37 @@ public class PNSServer extends PNSDrive{
     		try 
             {
     			output = new ObjectOutputStream(clt.getOutputStream());
-    			output.writeObject(allFiles);              
+    			output.writeObject(allFiles); 
+    			envoiConfirmation(output,true,"Voici le contenu du chemin:"+ dir);
             } 
             catch (IOException e) 
             {
+            	envoiConfirmation(output,false,"Erreur dans l'envoi du contenu du répertoire");
                 e.printStackTrace();
+                
             } 
-    		envoiConfirmation(output,true,"Voici le contenu du chemin:"+ dir);
+    		
     	}
     }
+    
+    public boolean suppressionFichier(ObjectInputStream input, ObjectOutputStream output) throws IOException
+    {
+    	//lecture du pathname envoyé par le client
+    	String pathnameFichier = input.readUTF();
+    	
+    	try 
+        {
+    		boolean estSupprime = this.deleteDirOrFile(new File(pathnameFichier)); 
+			envoiConfirmation(output,estSupprime,pathnameFichier + " est supprimé.");
+		    return estSupprime;
+        } 
+        catch (IOException e) 
+        {
+        	envoiConfirmation(output, false ," Une erreur s'est produite, le fichier " + pathnameFichier + " n'est pas supprimé.");
+            return false;
+        } 
+    }
+    
     
     public boolean creationDossier(ObjectInputStream input, ObjectOutputStream output) throws IOException
     {

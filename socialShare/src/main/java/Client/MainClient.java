@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainClient {
@@ -24,7 +26,12 @@ public class MainClient {
         c3.close();
 		*/
 		PNSClient c4 = new PNSClient(InetAddress.getLocalHost(),1234);
-        c4.deleteFichier("E:\\test\\testlol.txt");
+		List<String> new_And_old_Ways = new ArrayList<String>();
+		String old_pathname = "E:\\test_renomme\\hihi3.txt";
+		String new_pathname = "E:\\test_renomme\\hihi4.txt";
+		new_And_old_Ways.add(old_pathname);
+		new_And_old_Ways.add(new_pathname);
+        c4.renameFichier(new_And_old_Ways);
         c4.close();
 		
     }

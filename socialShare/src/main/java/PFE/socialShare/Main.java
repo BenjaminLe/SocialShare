@@ -7,8 +7,6 @@ import java.util.List;
 public class Main {
 	public static void main(String[] args) {
 		PNSDrive pns = new PNSDrive();
-		
-	File fichier = new File("C:\\test\\toto");
-	pns.deleteDirOrFile(fichier);
+		pns.fichierMove(new File("E:\\hihi.txt"), new File("E:\\test_renomme\\hihi.txt"));
 	}
 }

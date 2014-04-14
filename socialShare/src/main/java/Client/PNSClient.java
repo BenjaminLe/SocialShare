@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import PFE.socialShare.PNSDrive;
 
@@ -98,6 +99,25 @@ public class PNSClient extends PNSDrive{
             System.out.println("The socket for reading the object has problem");
             e.printStackTrace();
         }      
+        return receptionConfirmation();
+    }
+    
+    //Module 18 en réseau
+    public boolean renameFichier(List<String> ancienEtnouveauChemin) throws IOException
+    {
+        output.writeInt(8);
+        output.writeObject(ancienEtnouveauChemin);
+        output.flush();
+        return receptionConfirmation();
+    }
+    
+    
+    //Module 19 en réseau
+    public boolean moveFichier(List<String> ancienEtnouveauChemin) throws IOException
+    {
+        output.writeInt(7);
+        output.writeObject(ancienEtnouveauChemin);
+        output.flush();
         return receptionConfirmation();
     }
     

@@ -49,10 +49,19 @@ public class PNSServer extends PNSDrive{
             break;
         case 4 :
         	creationFichier(input,output);
+        	break;
         case 5 :
         	listFilesServer(input,output);
+        	break;
         case 6 :
         	suppressionFichier(input,output);
+        	break;
+        case 7 :
+        	fileMove(input,output);
+        	break;
+        case 8 :
+        	fileRename(input,output);
+        	break;
         default : 
             envoiConfirmation(output,false,"Mode non reconnu.");
         }
@@ -122,7 +131,48 @@ public class PNSServer extends PNSDrive{
         } 
     }
     
-    
+    public boolean fileMove(ObjectInputStream input, ObjectOutputStream output) throws IOException
+    {        
+    	
+        ArrayList<String> listeChemins = new ArrayList<String>();
+            try {
+                Object object = input.readObject();
+                listeChemins =  (ArrayList<String>) object;
+	            File old_pathname = new File(listeChemins.get(0));
+	            File new_pathname = new File(listeChemins.get(1));
+	            boolean estdeplace = this.fichierMove(old_pathname, new_pathname); 
+	            envoiConfirmation(output,estdeplace,old_pathname.toString() + " a été déplacé ici: " + new_pathname.toString());
+	            return estdeplace;
+	           
+	            } catch (ClassNotFoundException e) {
+	            	envoiConfirmation(output, false ," Une erreur s'est produite !");
+	                e.printStackTrace();
+	                return false;
+	            }
+
+	        }  
+    	
+    public boolean fileRename(ObjectInputStream input, ObjectOutputStream output) throws IOException
+    {        
+    	
+        ArrayList<String> listeChemins = new ArrayList<String>();
+            try {
+                Object object = input.readObject();
+                listeChemins =  (ArrayList<String>) object;
+	            File old_pathname = new File(listeChemins.get(0));
+	            File new_pathname = new File(listeChemins.get(1));
+	            boolean estdeplace = this.fichierMove(old_pathname, new_pathname); 
+	            envoiConfirmation(output,estdeplace,old_pathname.toString() + " a été renommé en: " + new_pathname.toString());
+	            return estdeplace;
+	           
+	            } catch (ClassNotFoundException e) {
+	            	envoiConfirmation(output, false ," Une erreur s'est produite !");
+	                e.printStackTrace();
+	                return false;
+	            }
+
+	        }  
+        
     public boolean creationDossier(ObjectInputStream input, ObjectOutputStream output) throws IOException
     {
         String dir = input.readUTF();

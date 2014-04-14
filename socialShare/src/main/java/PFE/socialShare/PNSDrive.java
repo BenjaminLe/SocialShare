@@ -22,8 +22,8 @@ public class PNSDrive {
 		return estSupprime;
 	}
 
-	// Module 18 & 19
-	public boolean fichierRenameOrMove(File ancien_nom, File nouveau_nom) {
+	// Module 18
+	public boolean fichierRename(File ancien_nom, File nouveau_nom) {
 
 		if (ancien_nom.renameTo(nouveau_nom))
 			return true;
@@ -32,6 +32,16 @@ public class PNSDrive {
 
 	}
 
+	// Module 19
+		public boolean fichierMove(File ancien_emplacement, File nouvelle_emplacement) {
+
+			if (ancien_emplacement.renameTo(nouvelle_emplacement))
+				return true;
+			else
+				return false;
+
+		}
+	
 	// Module 16
 	public boolean fichierCreate(File fichier, boolean ford) {
 

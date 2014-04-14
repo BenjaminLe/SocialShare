@@ -66,16 +66,7 @@ public class PNSClient extends PNSDrive{
         output.flush();
         return receptionConfirmation();
     }
-    
-    //Module 17 en réseau
-    public boolean deleteFichier(String pathnameFile) throws IOException
-    {
-        output.writeInt(6);
-        output.writeUTF(pathnameFile);
-        output.flush();
-        return receptionConfirmation();
-    }
-    
+     
     //Module 15 en réseau
     public boolean listFilesServer(String pathname) throws IOException
     {
@@ -102,6 +93,15 @@ public class PNSClient extends PNSDrive{
         return receptionConfirmation();
     }
     
+    //Module 17 en réseau
+    public boolean deleteFichier(String pathnameFile) throws IOException
+    {
+        output.writeInt(6);
+        output.writeUTF(pathnameFile);
+        output.flush();
+        return receptionConfirmation();
+    }
+    
     //Module 18 en réseau
     public boolean renameFichier(List<String> ancienEtnouveauChemin) throws IOException
     {
@@ -117,6 +117,14 @@ public class PNSClient extends PNSDrive{
     {
         output.writeInt(7);
         output.writeObject(ancienEtnouveauChemin);
+        output.flush();
+        return receptionConfirmation();
+    }
+    
+    public boolean pasteFichier(List<String> srcEtdst) throws IOException
+    {
+        output.writeInt(9);
+        output.writeObject(srcEtdst);
         output.flush();
         return receptionConfirmation();
     }

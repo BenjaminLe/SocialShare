@@ -26,7 +26,7 @@ public class PNSServer extends PNSDrive{
         srv.close();
     }
     
-    public void service() throws IOException
+    public void service() throws IOException, ClassNotFoundException
     {
         clt = srv.accept();
       
@@ -61,6 +61,9 @@ public class PNSServer extends PNSDrive{
         	break;
         case 8 :
         	fileRename(input,output);
+        	break;
+        case 9 :
+        	copierFichier(input,output);
         	break;
         default : 
             envoiConfirmation(output,false,"Mode non reconnu.");
@@ -217,6 +220,52 @@ public class PNSServer extends PNSDrive{
             envoiConfirmation(output,false,e.toString());
             return false;
         }
+    }
+    
+    //autre module en réseau
+    public boolean copierFichier(ObjectInputStream input, ObjectOutputStream output) throws ClassNotFoundException {  //Methode permettant la copie d'un fichier 
+         boolean resultat = false; 
+         File source = null;
+         File destination = null;
+         
+        // Declaration des flux 
+        FileInputStream sourceFile=null; 
+        FileOutputStream destinationFile=null;
+        ArrayList<String> srcAndDst = new ArrayList<String>();
+        try { 
+            	Object object = input.readObject();
+            	srcAndDst =  (ArrayList<String>) object;
+            	
+                // Création du fichier :
+            	source = new File(srcAndDst.get(0));
+            	destination = new File(srcAndDst.get(1));
+ 
+              // destination.createNewFile(); 
+                // Ouverture des flux 
+                sourceFile = new FileInputStream(source); 
+                destinationFile = new FileOutputStream(destination); 
+                // Lecture par segment de 0.5Mo  
+                byte buffer[]=new byte[524288000]; 
+                int nbLecture; 
+                while( (nbLecture = sourceFile.read(buffer)) != -1 ) { 
+                        destinationFile.write(buffer, 0, nbLecture); 
+                }  
+                 
+                // Copie réussie 
+                resultat = true; 
+                envoiConfirmation(output,resultat,"Le fichier "+source.getName() + " a bien été copié !");
+        } catch( FileNotFoundException f ) { 
+        } catch( IOException e ) { 
+        } finally { 
+                // Quoi qu'il arrive, on ferme les flux 
+                try { 
+                        sourceFile.close(); 
+                } catch(Exception e) { } 
+                try { 
+                        destinationFile.close(); 
+                } catch(Exception e) { } 
+        }  
+       return( resultat ); 
     }
     
     public void envoiConfirmation(ObjectOutputStream output, boolean conf, String msg) throws IOException

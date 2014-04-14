@@ -7,7 +7,7 @@ import java.io.OutputStream;
 
 public class MainServer {
 
-	public static void main(String...args) throws IOException
+	public static void main(String...args) throws IOException, ClassNotFoundException
     {
       PNSServer s = new PNSServer(new File("E:\\test\\"),1234);
 

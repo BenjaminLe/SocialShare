@@ -27,11 +27,11 @@ public class MainClient {
 		*/
 		PNSClient c4 = new PNSClient(InetAddress.getLocalHost(),1234);
 		List<String> new_And_old_Ways = new ArrayList<String>();
-		String old_pathname = "E:\\test_renomme\\hihi3.txt";
-		String new_pathname = "E:\\test_renomme\\hihi4.txt";
+		String old_pathname = "C:\\Users\\BenjaminLe\\Desktop\\Musique Yoga\\yoga1.mp3";
+		String new_pathname = "E:\\yoga_test\\yoga1.mp3";
 		new_And_old_Ways.add(old_pathname);
 		new_And_old_Ways.add(new_pathname);
-        c4.renameFichier(new_And_old_Ways);
+        c4.pasteFichier(new_And_old_Ways);
         c4.close();
 		
     }

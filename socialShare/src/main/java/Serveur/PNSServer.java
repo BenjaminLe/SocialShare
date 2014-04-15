@@ -255,7 +255,9 @@ public class PNSServer extends PNSDrive{
                 resultat = true; 
                 envoiConfirmation(output,resultat,"Le fichier "+source.getName() + " a bien été copié !");
         } catch( FileNotFoundException f ) { 
+        	System.out.println("fichier non trouvé!");
         } catch( IOException e ) { 
+        	System.out.println("Problème IO!");
         } finally { 
                 // Quoi qu'il arrive, on ferme les flux 
                 try { 

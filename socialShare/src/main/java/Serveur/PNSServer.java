@@ -28,9 +28,10 @@ public class PNSServer extends PNSDrive{
     
     public void service() throws IOException, ClassNotFoundException
     {
+    	//Le serveur est en écoute d'une connexion cliente
         clt = srv.accept();
-      
         System.out.println("Accepted connection : " + clt);
+        //On ouvre les flux en entrée et sortie
         ObjectOutputStream output = new ObjectOutputStream(clt.getOutputStream());
         ObjectInputStream input = new ObjectInputStream(clt.getInputStream());
         
@@ -39,55 +40,34 @@ public class PNSServer extends PNSDrive{
         switch (mode)
         {
         case 1 : 
-        	receptionFichier(input,output);
-            break;
-        case 2 :
-        	envoiFichier(input,output);
-            break;
-        case 3 : 
             creationDossier(input,output); 
             break;
-        case 4 :
+        case 2 :
         	creationFichier(input,output);
         	break;
-        case 5 :
+        case 3 :
         	listFilesServer(input,output);
         	break;
-        case 6 :
+        case 4 :
         	suppressionFichier(input,output);
         	break;
-        case 7 :
+        case 5 :
         	fileMove(input,output);
         	break;
-        case 8 :
+        case 6 :
         	fileRename(input,output);
         	break;
-        case 9 :
+        case 7 :
         	copierFichier(input,output);
         	break;
         default : 
             envoiConfirmation(output,false,"Mode non reconnu.");
         }
-        
+        //On ferme les flux entrée et sortie
         input.close();
         output.close();
     }
     
-    
-    public boolean envoiFichier(ObjectInputStream input, ObjectOutputStream output) throws IOException
-    {
-       //TODO
-        envoiConfirmation(output,false,"Mode non implémenté.");
-        return false;
-    }
-  
-    
-    public boolean receptionFichier(ObjectInputStream input, ObjectOutputStream output) throws IOException
-    {
-        // TODO
-        envoiConfirmation(output,false,"Mode non implémenté.");
-        return false;
-    }
     
     public void listFilesServer(ObjectInputStream input, ObjectOutputStream output) throws IOException
     {

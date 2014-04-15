@@ -16,15 +16,8 @@ public class MainClient {
         PNSClient c1 = new PNSClient(InetAddress.getLocalHost(),1234);
         c1.creationDossier("tata");
         c1.close();
-        
-        PNSClient c2 = new PNSClient(InetAddress.getLocalHost(),1234);
-        c2.creationDossier("tata/toto");
-        c2.close();
-        
-        PNSClient c3 = new PNSClient(InetAddress.getLocalHost(),1234);
-        c3.creationFichier("tata/titi.txt");
-        c3.close();
-		*/
+        */
+		
 		PNSClient c4 = new PNSClient(InetAddress.getLocalHost(),1234);
 		List<String> new_And_old_Ways = new ArrayList<String>();
 		String old_pathname = "C:\\Users\\BenjaminLe\\Desktop\\Musique Yoga\\yoga1.mp3";

@@ -10,7 +10,7 @@ public class MainServer {
 	public static void main(String...args) throws IOException, ClassNotFoundException
     {
       PNSServer s = new PNSServer(new File("E:\\test\\"),1234);
-     // for (int i=1; i<=3; i++)
+      	//En attente de la requête cliente
             s.service();            
             s.close();	
     }

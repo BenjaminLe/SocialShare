@@ -4,7 +4,10 @@ import java.io.*;
 import java.util.List;
 
 public class PNSDrive {
-
+	/*
+	******* Fonctionnalités en local ********
+	*/
+	
 	// Module 17
 	public boolean deleteDirOrFile(File dir) {
 		if (dir.isDirectory()) {

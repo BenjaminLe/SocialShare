@@ -31,28 +31,11 @@ public class PNSClient extends PNSDrive{
         output.close();
         clt.close();
     }
-    
-    public boolean envoiFichier(File fichier) throws IOException
-    {
-        // TODO
-        output.writeInt(1);
-        output.flush();
-        return receptionConfirmation();
-    }
-    
-    
-    public boolean receptionFichier(String nomFichier, File dst) throws IOException
-    {
-        // TODO
-        output.writeInt(2);
-        output.flush();
-        return receptionConfirmation();
-    }
-    
+      
     //Module 16 en réseau
     public boolean creationDossier(String nomDossier) throws IOException
     {
-        output.writeInt(3);
+        output.writeInt(1);
         output.writeUTF(nomDossier);
         output.flush();
         return receptionConfirmation();
@@ -61,7 +44,7 @@ public class PNSClient extends PNSDrive{
     //Module 16 en réseau
     public boolean creationFichier(String nomFichier) throws IOException
     {
-        output.writeInt(4);
+        output.writeInt(2);
         output.writeUTF(nomFichier);
         output.flush();
         return receptionConfirmation();
@@ -70,7 +53,7 @@ public class PNSClient extends PNSDrive{
     //Module 15 en réseau
     public boolean listFilesServer(String pathname) throws IOException
     {
-        output.writeInt(5);
+        output.writeInt(3);
         output.writeUTF(pathname);
         output.flush();
         
@@ -83,7 +66,7 @@ public class PNSClient extends PNSDrive{
 	            for(int i=0;i<listeFichiers.size();i++)
 	                System.out.println(listeFichiers.get(i));
             } catch (ClassNotFoundException e) {
-                System.out.println("The title list has not come from the server");
+                System.out.println("The list has not come from the server");
                 e.printStackTrace();
             }
         } catch (IOException e) {
@@ -96,8 +79,17 @@ public class PNSClient extends PNSDrive{
     //Module 17 en réseau
     public boolean deleteFichier(String pathnameFile) throws IOException
     {
-        output.writeInt(6);
+        output.writeInt(4);
         output.writeUTF(pathnameFile);
+        output.flush();
+        return receptionConfirmation();
+    }
+     
+    //Module 19 en réseau
+    public boolean moveFichier(List<String> ancienEtnouveauChemin) throws IOException
+    {
+        output.writeInt(5);
+        output.writeObject(ancienEtnouveauChemin);
         output.flush();
         return receptionConfirmation();
     }
@@ -105,17 +97,7 @@ public class PNSClient extends PNSDrive{
     //Module 18 en réseau
     public boolean renameFichier(List<String> ancienEtnouveauChemin) throws IOException
     {
-        output.writeInt(8);
-        output.writeObject(ancienEtnouveauChemin);
-        output.flush();
-        return receptionConfirmation();
-    }
-    
-    
-    //Module 19 en réseau
-    public boolean moveFichier(List<String> ancienEtnouveauChemin) throws IOException
-    {
-        output.writeInt(7);
+        output.writeInt(6);
         output.writeObject(ancienEtnouveauChemin);
         output.flush();
         return receptionConfirmation();
@@ -123,7 +105,7 @@ public class PNSClient extends PNSDrive{
     
     public boolean pasteFichier(List<String> srcEtdst) throws IOException
     {
-        output.writeInt(9);
+        output.writeInt(7);
         output.writeObject(srcEtdst);
         output.flush();
         return receptionConfirmation();

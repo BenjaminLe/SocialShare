@@ -11,8 +11,9 @@ public class MainServer {
     {
       PNSServer s = new PNSServer(new File("E:\\test\\"),1234);
       	//En attente de la requête cliente
+      	//while(true){
             s.service();            
             s.close();	
+      //	}
     }
-	
 }

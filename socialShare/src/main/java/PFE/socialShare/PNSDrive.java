@@ -7,6 +7,9 @@ public class PNSDrive {
 	/*
 	******* Fonctionnalités en local ********
 	*/
+
+	//Path à initialiser
+	String logPath;
 	
 	// Module 17
 	public boolean deleteDirOrFile(File dir) {
@@ -89,6 +92,7 @@ public class PNSDrive {
 			File[] list = path.listFiles();
 			if (list != null) {
 				System.out.println(path);
+		//		this.ecrireFichier(logPath+"\\log.txt", path.toString()+"\n");
 				allFiles.add(path.toString());
 				for (int i = 0; i < list.length; i++) {
 					// Appel récursif sur les sous-répertoires
@@ -103,8 +107,47 @@ public class PNSDrive {
 		else {
 			String currentFilePath = path.getAbsolutePath();
 			System.out.println(currentFilePath);
+		//	this.ecrireFichier(logPath+"\\log.txt", currentFilePath+"\n");
 			allFiles.add(currentFilePath);
 		}
 	}
 
+	public void ecrireFichier(String path, String text) {
+	//	PrintWriter ecri;
+		FileWriter writer = null;
+		try {
+		/*	ecri = new PrintWriter(new FileWriter(path));
+			ecri.print(text);
+			ecri.flush();
+			ecri.close();
+			*/
+			 writer = new FileWriter(path, true);
+		     writer.write(text,0,text.length());
+		     writer.close();
+			
+		}// try
+		catch (NullPointerException a) {
+			System.out.println("Erreur : pointeur null");
+		} catch (IOException a) {
+			System.out.println("Problème d'IO");
+		}
+	}// ecrire
+
+	public String lireFichier(String path) {
+		BufferedReader lect;
+		String tmp = "";
+		try {
+			lect = new BufferedReader(new FileReader(path));
+			while (lect.ready() == true) {
+				tmp += lect.readLine();
+			}// while
+		}// try
+		catch (NullPointerException a) {
+			System.out.println("Erreur : pointeur null");
+		} catch (IOException a) {
+			System.out.println("Problème d'IO");
+		}
+		return tmp;
+	}// lecture
+	
 }

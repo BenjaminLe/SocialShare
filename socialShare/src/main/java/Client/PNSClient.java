@@ -17,6 +17,8 @@ public class PNSClient extends PNSDrive{
 	protected Socket clt;
     private final ObjectInputStream input; 
     private final ObjectOutputStream output; 
+    //A initialiser pour la méthode listeFileServer
+    protected String logPath;
     
     public PNSClient(InetAddress address, int port) throws IOException
     {
@@ -63,8 +65,10 @@ public class PNSClient extends PNSDrive{
             try {
                 Object object = objectInput.readObject();
                 listeFichiers =  (ArrayList<String>) object;
-	            for(int i=0;i<listeFichiers.size();i++)
+	            for(int i=0;i<listeFichiers.size();i++) {
 	                System.out.println(listeFichiers.get(i));
+	            	this.ecrireFichier(logPath+"\\log.txt", listeFichiers.get(i)+"\n");
+	            }
             } catch (ClassNotFoundException e) {
                 System.out.println("The list has not come from the server");
                 e.printStackTrace();

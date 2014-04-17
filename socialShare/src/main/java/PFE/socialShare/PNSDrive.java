@@ -2,8 +2,11 @@ package PFE.socialShare;
 
 import java.io.*;
 import java.util.List;
+import javax.swing.JApplet;
+import java.awt.*;
+import java.applet.*;
 
-public class PNSDrive {
+public class PNSDrive extends JApplet {
 	/*
 	******* Fonctionnalités en local ********
 	*/

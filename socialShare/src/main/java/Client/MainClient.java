@@ -12,26 +12,20 @@ public class MainClient {
 
 	public static void main(String...args) throws IOException
     {
-		/*
-        PNSClient c1 = new PNSClient(InetAddress.getLocalHost(),1234);
-        c1.creationDossier("tata");
-        c1.close();
-        */
 		
-		PNSClient c4 = new PNSClient(InetAddress.getLocalHost(),1234);
+		PNSClient c4 = new PNSClient(InetAddress.getByName("192.168.43.69"),1234);
 		
-		/*
 		List<String> new_And_old_Ways = new ArrayList<String>();
-		String old_pathname = "C:\\Users\\BenjaminLe\\Desktop\\Musique Yoga\\yoga1.mp3";
-		String new_pathname = "E:\\yoga_test\\yoga1.mp3";
+		String old_pathname = "\\\\SARAH-PC\\Users\\Sarah\\Desktop\\Musique Ali\\ING5\\Reggada.mp3";
+		String new_pathname = "\\\\BENJAMINLE-PC\\test_soutenance\\Reggada.mp3";
 		new_And_old_Ways.add(old_pathname);
 		new_And_old_Ways.add(new_pathname);
         c4.pasteFichier(new_And_old_Ways);
-        */
-        c4.logPath = "E:\\yoga_test";
-		c4.listFilesServer("E:\\mettre_hihi_dedans");
+        
+    /*    c4.logPath = "E:\\test_soutenance";
+		c4.listFilesServer("\\\\SARAH-PC\\Users\\Sarah\\Desktop\\Musique Ali\\ING5\\Divers");
         c4.close();
-		
+		*/
     }
 	
 }
